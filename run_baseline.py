@@ -1,9 +1,3 @@
-"""Command line entry point.
-
-    python run_baseline.py                 # full run: tuning + untuned + tuned, 30 repeats
-    python run_baseline.py --quick         # fast smoke run (default parameters, 2 repeats, no tuning)
-    python run_baseline.py --out results   # choose the output folder
-"""
 import argparse
 import time
 from pathlib import Path
