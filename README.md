@@ -17,13 +17,16 @@ them with the CNN-MLP results printed in the paper.
 
 ```
 run_baseline.py        command line entry point (tuning, experiments, tables)
+check_paper_tables.py  re-checks of the paper's Tables 5, 6 and 10 (Wilcoxon tests with Holm correction, F1 against the all-buggy rule)
+run_paper_recheck.py   Phase 3: checks on the numbers printed in the paper (no model is trained)
 sdp/config.py          constants: features, version pairs, seeds, paper numbers, tuning grids
 sdp/data.py            loading the csv tables, binary label
 sdp/metrics.py         F1, AUC, PofB20, all-buggy reference rule
 sdp/models.py          model pipelines (log1p + scaler + LR, RF) and undersampling
 sdp/tuning.py          hyperparameter search on the training release only
 sdp/experiments.py     experiment loops (tuning, cross-version, within-release)
-tests/                 29 pytest tests
+sdp/paper_tables.py    the paper's Tables 5, 6 and 10 and the checks used in Phase 3
+tests/                 37 pytest tests
 data/promise/          the 12 PROMISE tables used in the paper
 results/               csv files written by run_baseline.py
 notebooks/             notebook that calls the package and shows the results
@@ -35,9 +38,11 @@ notebooks/             notebook that calls the package and shows the results
 python -m venv .venv
 .venv\Scripts\activate          # Windows   (Linux/macOS: source .venv/bin/activate)
 pip install -r requirements.txt
-python -m pytest -v             # 29 tests
+python -m pytest -v             # 37 tests
 python run_baseline.py --quick  # short smoke run (default parameters, 2 repeats)
 python run_baseline.py          # full run: tuning + 30 repeats (about 16 minutes on my laptop)
+python check_paper_tables.py    # Phase 3: checks of the numbers printed in the paper (a few seconds)
+python run_paper_recheck.py     # Phase 3: checks on the paper's tables (a few seconds)
 ```
 
 Random seeds: repeat `r` uses seed `2026 + r` for undersampling, Random Forest and Logistic Regression,
